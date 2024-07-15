@@ -1,0 +1,59 @@
+Importance to project
+
+    This project is about comparing different approaches to anomaly detection. We will compare a one-class SVM to other approaches. The reason we’re starting with this algorithm is that SVMs are well-studied and can work very well for a variety of problems.
+
+Workflow
+
+    Split the cleaned dataframe from the previous milestone into train and test data, ensuring it’s done in a stratified way.
+
+    Quantify the number of outliers in the sample to allow this number to be used as a parameter in the algorithms.
+
+    Separate out the samples corresponding to just the inliers class in the training data: this will be used for training.
+
+    Import the scikit-learn package (install it if it is not already installed using pip install -U scikit-learn)
+
+    Instantiate three one-class SVM by calling the method sklearn.svm.OneClassSVM() three times within a dictionary. For each instance, specify nu=outliers_fraction*4 and different kernel parameters for the three different instances as follows. (See “Resources” below for more details about kernel trick.)
+        Use kernel=’rbf’ for specifying the Radial Basis Function (RBF) as the kernel for the first instance.
+        Use kernel = ‘poly’, degree = 2 as the kernel for the second instance.
+        Use kernel = ‘poly’, degree = 3 as the kernel for the third instance.
+
+    Initialize a DataFrame to hold the classification metrics of interest (Precision, Recall, F1 Score, Average Precision, TN, TP, FN, FP).
+
+    Fit each of the previously instantiated models on the inliers data from step 3.
+
+    Evaluate the fitted models on the test features using custom_classification_metrics_function from the starter template and store the classification metrics in the DataFrame you initialized in Step 6. Note that, unlike supervised classification algorithms, one-class SVM doesn’t have a native predict_proba() method. See “Notes” below on what to edit.
+
+    Inspect the results.
+        What do you observe based on the F1 score, Precision, Recall, and Average Precision? Does performance increase or decrease with different kernels and degrees?
+
+    Copy the metrics to another DataFrame, which can be used to compare performance of the algorithms across different milestones.
+
+Notes
+
+    You can use the provided pre-processed data as the starting point for Milestone 2 if you had difficulty with Milestone 1.
+
+    We are using only the subset of the training data that belongs to the inlier class.
+
+    You will need to modify the custom_classification_metrics_function function from the starter template to make it suitable for the scikit-learn’s Anomaly Detection algorithms Right after the command test_pred = classifier.predict(X_test) you will need to insert these two lines of code because scikit-learn’s predict method generates labels with -1 for the anomalies and 1 for the inliers and we need to change it 1 and 0 to make it compatible with how we typically think of binary labels.
+
+test_pred = test_pred*-1
+test_pred[test_pred==-1]=0
+
+Also, you need to remove the line for predict_proba() and insert the following:
+
+decision_score_list = classifier.decision_function(X_test)    
+scaled_decision_score_list = MinMaxScaler().fit_transform(decision_score_list.reshape(-1, 1))
+y_scores = [1-item for sublist in scaled_decision_score_list for item in sublist]
+
+    Data scientists working on skewed data problems need to keep two things in mind: defining and capturing the right metrics and interpreting those metrics.
+
+        Defining and capturing the right metrics: In the custom classification metrics function, we have intentionally captured the macro-averaged metrics for the Precision, Recall, F1, and Average Precision scores. Specifying the macro version ensures that scikit-learn corrects for the skewed data and weights both classes equally.
+
+        Interpreting metrics: The correct interpretation relies on the use case and there is no one-size-fits-all solution. In the case of thyroid disease detection, we would typically want as many of the positive instances (in this case, the outlier class) to be captured at the expense of generating more false positives. This is because, even if there are false positives, a detailed screening can clear them out; but if a patient’s case is not detected at all (i.e. false negatives), then they are sent home and lost to follow-up evaluation.
+
+Deliverable
+
+The deliverable for this milestone is a Jupyter Notebook with a report on your results. Use the custom function from the starter template to get binary classification metrics. Write down your observations and conclusions. Which type of SVM performs better on this problem? Take a note of this performance, as we will compare it to other algorithms.
+
+Upload a link to your deliverable in the Submit Your Work section and click submit. After submitting, the author’s solution and peer solutions will appear on the page for you to examine.
+

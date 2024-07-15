@@ -1,0 +1,48 @@
+pip install mat2py
+Collecting mat2py
+  Downloading mat2py-0.0.21-py3-none-any.whl (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 1.4 MB/s eta 0:00:00
+Collecting executing<0.9.0,>=0.8.3 (from mat2py)
+  Downloading executing-0.8.3-py2.py3-none-any.whl (16 kB)
+Requirement already satisfied: numpy<2.0.0,>=1.21.4 in ./anaconda3/envs/Python3_8/lib/python3.8/site-packages (from mat2py) (1.24.3)
+Requirement already satisfied: scipy<2.0.0,>=1.7.0 in ./anaconda3/envs/Python3_8/lib/python3.8/site-packages (from mat2py) (1.10.1)
+Installing collected packages: executing, mat2py
+  Attempting uninstall: executing
+    Found existing installation: executing 1.2.0
+    Uninstalling executing-1.2.0:
+      Successfully uninstalled executing-1.2.0
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+stack-data 0.6.2 requires executing>=1.2.0, but you have executing 0.8.3 which is incompatible.
+Successfully installed executing-0.8.3 mat2py-0.0.21
+(Python3_8) brendon@brendon-desktop:~$ 
+
+Interim Solution: Unistalled and reinstalled scipy
+
+
+(Python3_8) brendon@brendon-desktop:~$ pip remove  scipy
+ERROR: unknown command "remove"
+(Python3_8) brendon@brendon-desktop:~$ pip uninstall  scipy
+Found existing installation: scipy 1.10.1
+Uninstalling scipy-1.10.1:
+  Would remove:
+    /home/brendon/anaconda3/envs/Python3_8/lib/python3.8/site-packages/scipy-1.10.1.dist-info/*
+    /home/brendon/anaconda3/envs/Python3_8/lib/python3.8/site-packages/scipy.libs/libgfortran-040039e1.so.5.0.0
+    /home/brendon/anaconda3/envs/Python3_8/lib/python3.8/site-packages/scipy.libs/libopenblasp-r0-41284840.3.18.so
+    /home/brendon/anaconda3/envs/Python3_8/lib/python3.8/site-packages/scipy.libs/libquadmath-96973f99.so.0.0.0
+    /home/brendon/anaconda3/envs/Python3_8/lib/python3.8/site-packages/scipy/*
+Proceed (Y/n)? y
+  Successfully uninstalled scipy-1.10.1
+(Python3_8) brendon@brendon-desktop:~$ pip install  scipy
+Collecting scipy
+  Using cached scipy-1.10.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (34.5 MB)
+Requirement already satisfied: numpy<1.27.0,>=1.19.5 in ./anaconda3/envs/Python3_8/lib/python3.8/site-packages (from scipy) (1.24.3)
+Installing collected packages: scipy
+Successfully installed scipy-1.10.1
+(Python3_8) brendon@brendon-desktop:~$ python3
+Python 3.8.0 | packaged by conda-forge | (default, Nov 22 2019, 19:11:38) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import scipy
+>>> import scipy.io
+>>> exit()
+(Python3_8) bre

@@ -1,0 +1,18 @@
+# All files to ignore
+
+# Data files: Source and intermediate
+*.mat
+*.csv
+
+# Archives
+*.zip
+
+# Hidden files
+# .*.*
+
+# Directories
+__Archive/
+# .ipynb_checkpoints/
+
+# This directory is used to run the localised solutions 
+# ./book_name_dir/02-FullSolutions/
