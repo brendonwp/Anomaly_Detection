@@ -13,6 +13,7 @@
 # Directories
 __Archive/
 # .ipynb_checkpoints/
+./Using-scikit-learn/03-Notebooks/.ipynb_checkpoints
 
 # This directory is used to run the localised solutions 
 # ./book_name_dir/02-FullSolutions/
